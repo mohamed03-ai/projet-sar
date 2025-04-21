@@ -3,6 +3,7 @@
 import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
 import javax.swing.*;
+import java.rmi.RMISecurityManager;
 
 public class clientsideMain {
 
@@ -10,6 +11,9 @@ public class clientsideMain {
         System.out.println("Hello from clientsideMain");
 
         try {
+            if (System.getSecurityManager() == null) {
+    System.setSecurityManager(new RMISecurityManager());
+}
             // Connect to RMI Registry
             Registry registry = LocateRegistry.getRegistry("localhost", 1099);
             FabGameInterface fabrique = (FabGameInterface) registry.lookup("Fabrique");
